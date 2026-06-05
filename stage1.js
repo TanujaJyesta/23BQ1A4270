@@ -1,4 +1,12 @@
+const Log = require("./logger");
+async function main() {
 console.log("Program started");
+await Log(
+  "backend",
+  "info",
+  "service",
+  "Notification priority calculation started"
+);
 const notifications = [
     {
         "ID": "bcda8430-945b-476e-8df9-30712b942d3a",
@@ -121,13 +129,23 @@ const notifications = [
         "Timestamp": "2026-06-04 21:44:31"
     }
 ];
-
+await Log(
+  "backend",
+  "info",
+  "service",
+  `Loaded ${notifications.length} notifications`
+);
 const weights = {
   Placement: 3,
   Result: 2,
   Event: 1
 };
-
+await Log(
+  "backend",
+  "info",
+  "service",
+  "Sorting notifications by priority"
+);
 const top10 = [...notifications]
   .sort((a, b) => {
     const weightA = weights[a.Type] || 0;
@@ -140,8 +158,23 @@ const top10 = [...notifications]
     return b.Timestamp.localeCompare(a.Timestamp);
   })
   .slice(0, 10);
-
+await Log(
+  "backend",
+  "info",
+  "service",
+  "Top 10 notifications generated successfully"
+);
 console.log("Top 10 Notifications with Priority\n");
 top10.forEach((n, index) => {
   console.log(`${index + 1}. ${n.Type} | ${n.Message} | ${n.Timestamp}`);
 });
+await Log(
+  "backend",
+  "info",
+  "service",
+  "Results displayed to console"
+);
+
+}
+
+main();
